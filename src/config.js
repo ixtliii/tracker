@@ -1,13 +1,13 @@
 export const firebaseConfig = {
-  apiKey: 'PASTE_API_KEY',
-  authDomain: 'tracker-85225.firebaseapp.com',
-  projectId: 'tracker-85225',
-  storageBucket: 'tracker-85225.firebasestorage.app',
-  messagingSenderId: 'PASTE_SENDER_ID',
-  appId: 'PASTE_APP_ID',
+  apiKey: "AIzaSyB6Ei_R7tUQIUEfbGgeDHHcXjw0pplgbKU",
+  authDomain: "tracker-85225.firebaseapp.com",
+  projectId: "tracker-85225",
+  storageBucket: "tracker-85225.firebasestorage.app",
+  messagingSenderId: "605948357141",
+  appId: "1:605948357141:web:2a59c8d3434654efb97c1c"
 };
 
-export const PROJECT_NAME = 'Our group project';
+export const PROJECT_NAME = 'tracker';
 
 export const TEAM = [
   { id: 'artem', name: 'Artem', color: '#3B6FE0', email: 'artem.diakunchak@student.howest.be' },
