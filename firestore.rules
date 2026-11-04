@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Logged-in person's id, taken from their login email: "artem@teamhours.example" -> "artem"
+    function me() {
+      return request.auth != null ? request.auth.token.email.split('@')[0] : '';
+    }
+    function isMember() {
+      return me() in ['artem', 'dima', 'lucy'];
+    }
+
+    // Time entries: anyone can read (the public report), each member adds and deletes only their own.
+    match /entries/{id} {
+      allow read: if true;
+      allow create: if isMember()
+        && request.resource.data.person == me()
+        && request.resource.data.keys().hasOnly(['person', 'start', 'end', 'minutes', 'task', 'created'])
+        && request.resource.data.start is int
+        && request.resource.data.end is int
+        && request.resource.data.end > request.resource.data.start
+        && request.resource.data.minutes is int
+        && request.resource.data.minutes >= 1
+        && request.resource.data.minutes <= 960
+        && request.resource.data.task is string
+        && request.resource.data.task.size() <= 200;
+      allow delete: if isMember() && resource.data.person == me();
+      allow update: if false;
+    }
+
+    // Running timers, one document per person.
+    match /timers/{person} {
+      allow read: if true;
+      allow write: if isMember() && person == me();
+    }
+  }
+}
