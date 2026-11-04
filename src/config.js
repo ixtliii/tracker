@@ -14,8 +14,8 @@ export const PROJECT_NAME = 'JEF';
 
 export const TEAM = [
   { id: 'artem', name: 'Artem', color: '#3B6FE0', email: 'artem.diakunchak@student.howest.be' },
-  { id: 'dima', name: 'Dima', color: '#E0663B', email: 'DIMA_EMAIL@student.howest.be' },
-  { id: 'lucy', name: 'Lucy', color: '#1F9D61', email: 'LUCY_EMAIL@student.howest.be' },
+  { id: 'dima', name: 'Dima', color: '#E0663B', email: 'Dmytro.ANASTASIY@student.howest.be' },
+  { id: 'lucy', name: 'Lucy', color: '#1F9D61', email: 'nhu.do@student.howest.be' },
 ];
 
-export const EMAIL_DOMAIN = 'teamhours.example';
+export const EMAIL_DOMAIN = 'student.howest.be';
