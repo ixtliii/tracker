@@ -4,7 +4,7 @@ import {
   collection, doc, onSnapshot, setDoc, deleteDoc, writeBatch,
 } from 'firebase/firestore';
 import { auth, db } from './firebase.js';
-import { TEAM, PROJECT_NAME, EMAIL_DOMAIN } from './config.js';
+import { TEAM, PROJECT_NAME } from './config.js';
 
 /* ---------- helpers ---------- */
 const pad = (n) => String(n).padStart(2, '0');
@@ -14,7 +14,7 @@ const hm = (ms) => { const d = new Date(ms); return `${pad(d.getHours())}:${pad(
 const fmtDay = (k) => new Date(`${k}T12:00`).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
 const hms = (s) => { s = Math.max(0, Math.floor(s)); return `${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`; };
 const member = (id) => TEAM.find((m) => m.id === id);
-const idFromEmail = (email) => (email || '').split('@')[0];
+const idFromEmail = (email) => TEAM.find((m) => m.email.toLowerCase() === (email || '').toLowerCase())?.id || null;
 
 function friendlyError(e) {
   const c = e?.code || '';
@@ -107,7 +107,7 @@ function Login({ person, otherSignedIn }) {
     setErr(''); setBusy(true);
     try {
       if (otherSignedIn) await signOut(auth);
-      await signInWithEmailAndPassword(auth, `${person.id}@${EMAIL_DOMAIN}`, pw);
+      await signInWithEmailAndPassword(auth, person.email, pw);
     } catch (e2) { setErr(friendlyError(e2)); }
     setBusy(false);
   }
